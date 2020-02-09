@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "OpenStreetMap.AddressParser": {
+      "commandName": "Project"
+    }
+  }
+}

@@ -3,6 +3,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Xml.Serialization;
 using CsvHelper;
 using CsvHelper.Configuration;
@@ -24,6 +25,7 @@ namespace OpenStreetMap.AddressParser
 			var addresses = osm.Node.Where(x => x.Tag.Any(t => t.Key == "addr:city")).ToList();
 			var completeAddresses = ConvertToWholeAddresses(addresses);
 			WriteToCsv(outputFile, completeAddresses);
+			//WriteToJson(outputFile, completeAddresses);
 		}
 
 		private static void WriteToCsv(string filename, List<CompleteAddress> completeAddresses)
@@ -37,6 +39,16 @@ namespace OpenStreetMap.AddressParser
 			{
 				csv.WriteRecords(completeAddresses);
 			}
+		}
+
+		private static void WriteToJson(string filename, List<CompleteAddress> completeAddresses)
+		{
+			var options = new JsonSerializerOptions
+			{
+				WriteIndented = true,
+			};
+			var jsonString = JsonSerializer.Serialize(completeAddresses, options);
+			File.WriteAllText(filename, jsonString);
 		}
 
 		private static List<CompleteAddress> ConvertToWholeAddresses(List<Node> addresses)

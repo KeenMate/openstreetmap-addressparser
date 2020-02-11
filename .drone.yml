@@ -23,8 +23,8 @@ steps:
       api_key:
         from_secret: github_release_token
       files:
-        - /release-win-x64/openstreetmap-addressparser-win64.exe
-        - /release-linux-x64/openstreetmap-addressparser-linux64
+        - /release-win-x64/*
+        - /release-linux-x64/*
     when:
       event: tag
       

@@ -11,9 +11,7 @@ steps:
   - name: publish
     image: mcr.microsoft.com/dotnet/core/sdk:3.1
     commands:
-      - mkdir /release-win-x64
-      - mkdir /release-linux-x64
-      - dotnet publish -o /release-win-64 -c Release --self-contained --runtime win-x64 /p:PublishSingleFile=true /p:PublishTrimmed=true
+      - dotnet publish -o /release-win-x64 -c Release --self-contained --runtime win-x64 /p:PublishSingleFile=true /p:PublishTrimmed=true
       - dotnet publish -o /release-linux-x64 -c Release --self-contained --runtime linux-x64 /p:PublishSingleFile=true /p:PublishTrimmed=true
       - mv /release-win-x64/OpenStreetMap.AddressParser.exe /release-win-x64/openstreetmap-addressparser-win64.exe
       - mv /release-linux-x64/OpenStreetMap.AddressParser /release-linux-x64/openstreetmap-addressparser-linux64

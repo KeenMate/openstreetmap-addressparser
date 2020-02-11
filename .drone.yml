@@ -11,10 +11,11 @@ steps:
   - name: publish
     image: mcr.microsoft.com/dotnet/core/sdk:3.1
     commands:
+      - mkdir /release
       - dotnet publish -o /release-win-x64 -c Release --self-contained --runtime win-x64 /p:PublishSingleFile=true /p:PublishTrimmed=true
       - dotnet publish -o /release-linux-x64 -c Release --self-contained --runtime linux-x64 /p:PublishSingleFile=true /p:PublishTrimmed=true
-      - mv /release-win-x64/OpenStreetMap.AddressParser.exe /release-win-x64/openstreetmap-addressparser-win64.exe
-      - mv /release-linux-x64/OpenStreetMap.AddressParser /release-linux-x64/openstreetmap-addressparser-linux64
+      - mv /release-win-x64/OpenStreetMap.AddressParser.exe /release/openstreetmap-addressparser-win64.exe
+      - mv /release-linux-x64/OpenStreetMap.AddressParser /release/openstreetmap-addressparser-linux64
     when:
       event: tag
   - name: release
@@ -23,8 +24,7 @@ steps:
       api_key:
         from_secret: github_release_token
       files:
-        - /release-win-x64/*
-        - /release-linux-x64/*
+        - /release/*
     when:
       event: tag
       
